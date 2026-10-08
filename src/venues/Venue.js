@@ -16,6 +16,7 @@ const DATASET_FIELDS = [
   ...constants.EVR_PROPERTIES,
   ...constants.CHANNEL_PROPERTIES,
   ...constants.CHANNEL_TAXONOMY_PROPERTIES,
+  ...constants.CHANNEL_QUERY_PROPERTIES,
   ...constants.DATA_PRODUCT_PROPERTIES,
   ...constants.PACKET_PROPERTIES,
   ...constants.WEBSOCKET_STREAM_URL_KEYS

@@ -34,6 +34,15 @@ const CONSTANTS = {
   ],
 
   /**
+   * An array of model properties that configure how channel telemetry is
+   * queried.
+   *
+   * useChillaxSbe: query historical and LAD channel values from
+   * chillax-server as SBE PartialData messages instead of MCWS JSON.
+   */
+  CHANNEL_QUERY_PROPERTIES: ['useChillaxSbe'],
+
+  /**
    * An array of model properties that provide data products.
    */
   DATA_PRODUCT_PROPERTIES: ['dataProductUrl', 'dataProductContentUrl'],
@@ -209,7 +218,8 @@ const CONSTANTS = {
  * telemetry.
  */
 CONSTANTS.CHANNEL_COPY_KEYS = CONSTANTS.CHANNEL_PROPERTIES.concat(
-  CONSTANTS.CHANNEL_TAXONOMY_PROPERTIES
+  CONSTANTS.CHANNEL_TAXONOMY_PROPERTIES,
+  CONSTANTS.CHANNEL_QUERY_PROPERTIES
 );
 
 export default CONSTANTS;

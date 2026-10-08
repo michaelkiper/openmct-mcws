@@ -60,6 +60,14 @@ const DatasetType = new VISTAType({
       cssClass: 'l-input-lg'
     },
     {
+      name: 'Query Channels from Chillax as SBE',
+      key: 'useChillaxSbe',
+      description:
+        'Query historical and LAD channel values as SBE from a chillax-server ' +
+        'serving the channel historical and LAD URLs',
+      control: 'checkbox'
+    },
+    {
       name: 'Channel Stream URL',
       key: 'channelStreamUrl',
       control: 'textfield',

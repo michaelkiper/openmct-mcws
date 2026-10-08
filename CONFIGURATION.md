@@ -125,6 +125,21 @@ When including the Open MCT for MCWS Plugin into your Open MCT project, the foll
 - `enabled` (boolean): Enable or disable venue aware mode. Options: `true`, `false`.
 - `venues` (string or array): Either a list of venue definitions or a URL for a JSON venue definition file. If a URL is provided, it will be queried at run time to determine the venues available. An example of a JSON venue definition file is provided in "ExampleVenueDefinitions.json".
 
+#### Chillax channel queries
+- **Venue/Data Set property**: `useChillaxSbe` (boolean), or the "Query Channels from Chillax as SBE" checkbox on a Data Set.
+- **Description**: Queries historical and LAD channel values from a [chillax-server](https://github.jpl.nasa.gov/IDMS/chillax-server) instead of MCWS. Point `channelHistoricalUrl` at the server's `/channels` endpoint and `channelLADUrl` at its `/channel_lad` endpoint. Values are requested with a `columns` list and decoded from SBE `PartialData` messages using `@gov.nasa.jpl.gds.mcs/chillax-sbe`.
+- **Limitations**: Only the `scet` and `ert` time systems are supported. Requests in other time systems, min-max requests and header channels continue to use MCWS JSON queries.
+
+```json
+{
+  "name": "Chillax Venue",
+  "channelDictionaryUrl": "https://mcws.example/channel/dictionary",
+  "channelHistoricalUrl": "https://chillax.example/channels",
+  "channelLADUrl": "https://chillax.example/channel_lad",
+  "useChillaxSbe": true
+}
+```
+
 ### Taxonomy Configuration
 
 #### `taxonomy`

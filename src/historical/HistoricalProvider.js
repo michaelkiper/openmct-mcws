@@ -10,13 +10,18 @@ import channelAlarmProvider from './providers/ChannelAlarmProvider.js';
 import commandEventsProvider from './providers/CommandEventsProvider.js';
 import headerChannelsHistoricalProvider from './providers/HeaderChannelsHistoricalProvider.js';
 import channelHistoricalProvider from './providers/ChannelHistoricalProvider.js';
+import chillaxChannelLadProvider from './providers/ChillaxChannelLadProvider.js';
+import chillaxChannelHistoricalProvider from './providers/ChillaxChannelHistoricalProvider.js';
 
 import { debounce } from '../utils/utils.js';
 
 const UTC_FORMAT_KEY = window.openmctMCWSConfig?.time?.utcFormat;
 
-// Combine all providers into array
+// Combine all providers into array. The first provider supporting a request handles it, so the
+// chillax providers come first to take channel requests for datasets that opt in to them.
 const PROVIDERS = [
+  chillaxChannelLadProvider,
+  chillaxChannelHistoricalProvider,
   channelLADProvider,
   minMaxProvider,
   evrProvider,
@@ -240,6 +245,10 @@ class HistoricalProvider {
       return this.doQueuedRequest(domainObject, options, params, provider);
     }
     return provider.request(domainObject, options, params).catch(async (errorResponse) => {
+      if (typeof errorResponse?.text !== 'function') {
+        throw errorResponse;
+      }
+
       const responseBody = await errorResponse.text();
       const match = responseBody.match(/does not contain the specified parameter column: (\w+)/);
 
